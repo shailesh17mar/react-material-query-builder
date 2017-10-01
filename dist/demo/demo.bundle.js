@@ -21359,8 +21359,10 @@ var QueryBuilder = function (_React$Component) {
             var _state = this.state,
                 _state$root = _state.root,
                 id = _state$root.id,
+                showCombinators = _state$root.showCombinators,
                 rules = _state$root.rules,
                 combinator = _state$root.combinator,
+                allowRulesAtRoot = _state$root.allowRulesAtRoot,
                 schema = _state.schema;
 
 
@@ -21370,8 +21372,11 @@ var QueryBuilder = function (_React$Component) {
                 _react2.default.createElement(_RuleGroup2.default, {
                     rules: rules,
                     combinator: combinator,
+                    showCombinators: showCombinators,
                     schema: schema,
+                    allowRulesAtRoot: allowRulesAtRoot,
                     id: id,
+                    isRoot: true,
                     parentId: null
                 })
             );
@@ -21402,6 +21407,10 @@ var QueryBuilder = function (_React$Component) {
             return {
                 id: 'g-' + (0, _v2.default)(),
                 rules: [],
+                allowRulesAtRoot: false,
+                showCombinators: false,
+                allowGroupsAtChildren: false,
+                isRoot: true,
                 combinator: this.props.combinators[0].name
             };
         }
@@ -25992,7 +26001,7 @@ module.exports = function() {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26014,138 +26023,144 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RuleGroup = function (_React$Component) {
-    _inherits(RuleGroup, _React$Component);
+	_inherits(RuleGroup, _React$Component);
 
-    function RuleGroup() {
-        var _ref;
+	function RuleGroup() {
+		var _ref;
 
-        var _temp, _this, _ret;
+		var _temp, _this, _ret;
 
-        _classCallCheck(this, RuleGroup);
+		_classCallCheck(this, RuleGroup);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RuleGroup.__proto__ || Object.getPrototypeOf(RuleGroup)).call.apply(_ref, [this].concat(args))), _this), _this.onCombinatorChange = function (value) {
-            var onPropChange = _this.props.schema.onPropChange;
-
-
-            onPropChange('combinator', value, _this.props.id);
-        }, _this.addRule = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var _this$props$schema = _this.props.schema,
-                createRule = _this$props$schema.createRule,
-                onRuleAdd = _this$props$schema.onRuleAdd;
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RuleGroup.__proto__ || Object.getPrototypeOf(RuleGroup)).call.apply(_ref, [this].concat(args))), _this), _this.onCombinatorChange = function (value) {
+			var onPropChange = _this.props.schema.onPropChange;
 
 
-            var newRule = createRule();
-            onRuleAdd(newRule, _this.props.id);
-        }, _this.addGroup = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
+			onPropChange('combinator', value, _this.props.id);
+		}, _this.addRule = function (event) {
+			event.preventDefault();
+			event.stopPropagation();
 
-            var _this$props$schema2 = _this.props.schema,
-                createRuleGroup = _this$props$schema2.createRuleGroup,
-                onGroupAdd = _this$props$schema2.onGroupAdd;
+			var _this$props$schema = _this.props.schema,
+			    createRule = _this$props$schema.createRule,
+			    onRuleAdd = _this$props$schema.onRuleAdd;
 
-            var newGroup = createRuleGroup();
-            onGroupAdd(newGroup, _this.props.id);
-        }, _this.removeGroup = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
 
-            _this.props.schema.onGroupRemove(_this.props.id, _this.props.parentId);
-        }, _temp), _possibleConstructorReturn(_this, _ret);
-    }
+			var newRule = createRule();
+			onRuleAdd(newRule, _this.props.id);
+		}, _this.addGroup = function (event) {
+			event.preventDefault();
+			event.stopPropagation();
 
-    _createClass(RuleGroup, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+			var _this$props$schema2 = _this.props.schema,
+			    createRuleGroup = _this$props$schema2.createRuleGroup,
+			    onGroupAdd = _this$props$schema2.onGroupAdd;
 
-            var _props = this.props,
-                combinator = _props.combinator,
-                rules = _props.rules,
-                _props$schema = _props.schema,
-                combinators = _props$schema.combinators,
-                controls = _props$schema.controls,
-                onRuleRemove = _props$schema.onRuleRemove,
-                isRuleGroup = _props$schema.isRuleGroup,
-                getLevel = _props$schema.getLevel,
-                classNames = _props$schema.classNames;
+			var newGroup = createRuleGroup();
+			onGroupAdd(newGroup, _this.props.id);
+		}, _this.removeGroup = function (event) {
+			event.preventDefault();
+			event.stopPropagation();
 
-            var level = getLevel(this.props.id);
-            return _react2.default.createElement(
-                'div',
-                { className: 'ruleGroup ' + classNames.ruleGroup },
-                _react2.default.createElement(controls.combinatorSelector, {
-                    options: combinators,
-                    value: combinator,
-                    className: 'ruleGroup-combinators ' + classNames.combinators,
-                    handleOnChange: this.onCombinatorChange,
-                    rules: rules,
-                    level: level
-                }),
-                _react2.default.createElement(controls.addRuleAction, {
-                    label: 'Add Rule',
-                    className: 'ruleGroup-addRule ' + classNames.addRule,
-                    handleOnClick: this.addRule,
-                    rules: rules,
-                    level: level
-                }),
-                _react2.default.createElement(controls.addGroupAction, {
-                    label: 'Add Group',
-                    className: 'ruleGroup-addGroup ' + classNames.addGroup,
-                    handleOnClick: this.addGroup,
-                    rules: rules,
-                    level: level
-                }),
-                this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
-                    isIcon: true,
-                    className: 'ruleGroup-remove ' + classNames.removeGroup,
-                    handleOnClick: this.removeGroup,
-                    rules: rules,
-                    level: level
-                }) : null,
-                rules.map(function (r) {
-                    return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
-                        id: r.id,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        combinator: r.combinator,
-                        rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
-                        id: r.id,
-                        field: r.field,
-                        value: r.value,
-                        operator: r.operator,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        onRuleRemove: onRuleRemove });
-                })
-            );
-        }
-    }, {
-        key: 'hasParentGroup',
-        value: function hasParentGroup() {
-            return this.props.parentId;
-        }
-    }], [{
-        key: 'defaultProps',
-        get: function get() {
-            return {
-                id: null,
-                parentId: null,
-                rules: [],
-                combinator: 'and',
-                schema: {}
-            };
-        }
-    }]);
+			_this.props.schema.onGroupRemove(_this.props.id, _this.props.parentId);
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
 
-    return RuleGroup;
+	_createClass(RuleGroup, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var _props = this.props,
+			    combinator = _props.combinator,
+			    showCombinators = _props.showCombinators,
+			    rules = _props.rules,
+			    isRoot = _props.isRoot,
+			    allowRulesAtRoot = _props.allowRulesAtRoot,
+			    allowGroupsAtChildren = _props.allowGroupsAtChildren,
+			    _props$schema = _props.schema,
+			    combinators = _props$schema.combinators,
+			    controls = _props$schema.controls,
+			    onRuleRemove = _props$schema.onRuleRemove,
+			    isRuleGroup = _props$schema.isRuleGroup,
+			    getLevel = _props$schema.getLevel,
+			    classNames = _props$schema.classNames;
+
+			var level = getLevel(this.props.id);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'ruleGroup ' + classNames.ruleGroup },
+				showCombinators ? _react2.default.createElement(controls.combinatorSelector, {
+					options: combinators,
+					value: combinator,
+					className: 'ruleGroup-combinators ' + classNames.combinators,
+					handleOnChange: this.onCombinatorChange,
+					rules: rules,
+					level: level
+				}) : null,
+				!isRoot || allowRulesAtRoot ? _react2.default.createElement(controls.addRuleAction, {
+					label: 'Add Rule',
+					className: 'ruleGroup-addRule ' + classNames.addRule,
+					handleOnClick: this.addRule,
+					rules: rules,
+					level: level
+				}) : null,
+				isRoot || allowGroupsAtChildren ? _react2.default.createElement(controls.addGroupAction, {
+					label: 'Add Group',
+					className: 'ruleGroup-addGroup ' + classNames.addGroup,
+					handleOnClick: this.addGroup,
+					rules: rules,
+					level: level
+				}) : null,
+				this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
+					isIcon: true,
+					className: 'ruleGroup-remove ' + classNames.removeGroup,
+					handleOnClick: this.removeGroup,
+					rules: rules,
+					level: level
+				}) : null,
+				rules.map(function (r, i) {
+					return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
+						id: r.id,
+						schema: _this2.props.schema,
+						parentId: _this2.props.id,
+						allowGroupsAtChildren: allowGroupsAtChildren,
+						combinator: r.combinator,
+						rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
+						id: r.id,
+						field: r.field,
+						value: r.value,
+						operator: r.operator,
+						showJoin: i !== rules.length - 1,
+						schema: _this2.props.schema,
+						parentId: _this2.props.id,
+						onRuleRemove: onRuleRemove });
+				})
+			);
+		}
+	}, {
+		key: 'hasParentGroup',
+		value: function hasParentGroup() {
+			return this.props.parentId;
+		}
+	}], [{
+		key: 'defaultProps',
+		get: function get() {
+			return {
+				id: null,
+				parentId: null,
+				rules: [],
+				combinator: 'and',
+				schema: {}
+			};
+		}
+	}]);
+
+	return RuleGroup;
 }(_react2.default.Component);
 
 exports.default = RuleGroup;
@@ -26158,7 +26173,7 @@ exports.default = RuleGroup;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26176,105 +26191,111 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Rule = function (_React$Component) {
-    _inherits(Rule, _React$Component);
+	_inherits(Rule, _React$Component);
 
-    function Rule() {
-        var _ref;
+	function Rule() {
+		var _ref;
 
-        var _temp, _this, _ret;
+		var _temp, _this, _ret;
 
-        _classCallCheck(this, Rule);
+		_classCallCheck(this, Rule);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rule.__proto__ || Object.getPrototypeOf(Rule)).call.apply(_ref, [this].concat(args))), _this), _this.onFieldChanged = function (value) {
-            _this.onElementChanged('field', value);
-        }, _this.onOperatorChanged = function (value) {
-            _this.onElementChanged('operator', value);
-        }, _this.onValueChanged = function (value) {
-            _this.onElementChanged('value', value);
-        }, _this.onElementChanged = function (property, value) {
-            var _this$props = _this.props,
-                id = _this$props.id,
-                onPropChange = _this$props.schema.onPropChange;
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rule.__proto__ || Object.getPrototypeOf(Rule)).call.apply(_ref, [this].concat(args))), _this), _this.onFieldChanged = function (value) {
+			_this.onElementChanged('field', value);
+		}, _this.onOperatorChanged = function (value) {
+			_this.onElementChanged('operator', value);
+		}, _this.onValueChanged = function (value) {
+			_this.onElementChanged('value', value);
+		}, _this.onElementChanged = function (property, value) {
+			var _this$props = _this.props,
+			    id = _this$props.id,
+			    onPropChange = _this$props.schema.onPropChange;
 
 
-            onPropChange(property, value, id);
-        }, _this.removeRule = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
+			onPropChange(property, value, id);
+		}, _this.removeRule = function (event) {
+			event.preventDefault();
+			event.stopPropagation();
 
-            _this.props.schema.onRuleRemove(_this.props.id, _this.props.parentId);
-        }, _temp), _possibleConstructorReturn(_this, _ret);
-    }
+			_this.props.schema.onRuleRemove(_this.props.id, _this.props.parentId);
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
 
-    _createClass(Rule, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                field = _props.field,
-                operator = _props.operator,
-                value = _props.value,
-                _props$schema = _props.schema,
-                fields = _props$schema.fields,
-                controls = _props$schema.controls,
-                getOperators = _props$schema.getOperators,
-                getLevel = _props$schema.getLevel,
-                classNames = _props$schema.classNames;
+	_createClass(Rule, [{
+		key: 'render',
+		value: function render() {
+			var _props = this.props,
+			    field = _props.field,
+			    showJoin = _props.showJoin,
+			    operator = _props.operator,
+			    value = _props.value,
+			    _props$schema = _props.schema,
+			    fields = _props$schema.fields,
+			    controls = _props$schema.controls,
+			    getOperators = _props$schema.getOperators,
+			    getLevel = _props$schema.getLevel,
+			    classNames = _props$schema.classNames;
 
-            var level = getLevel(this.props.id);
-            return _react2.default.createElement(
-                'div',
-                { className: 'rule ' + classNames.rule },
-                _react2.default.createElement(controls.fieldSelector, {
-                    options: fields,
-                    value: field,
-                    className: 'rule-fields ' + classNames.fields,
-                    handleOnChange: this.onFieldChanged,
-                    level: level
-                }),
-                _react2.default.createElement(controls.operatorSelector, {
-                    field: field,
-                    options: getOperators(field),
-                    value: operator,
-                    className: 'rule-operators ' + classNames.operators,
-                    handleOnChange: this.onOperatorChanged,
-                    level: level
-                }),
-                _react2.default.createElement(controls.valueEditor, {
-                    field: field,
-                    operator: operator,
-                    value: value,
-                    className: 'rule-value ' + classNames.value,
-                    handleOnChange: this.onValueChanged,
-                    level: level
-                }),
-                _react2.default.createElement(controls.removeRuleAction, {
-                    label: 'x',
-                    isIcon: true,
-                    className: 'rule-remove ' + classNames.removeRule,
-                    handleOnClick: this.removeRule,
-                    level: level
-                })
-            );
-        }
-    }], [{
-        key: 'defaultProps',
-        get: function get() {
-            return {
-                id: null,
-                parentId: null,
-                field: null,
-                operator: null,
-                value: null,
-                schema: null
-            };
-        }
-    }]);
+			var level = getLevel(this.props.id);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'rule ' + classNames.rule },
+				_react2.default.createElement(controls.fieldSelector, {
+					options: fields,
+					value: field,
+					className: 'rule-fields ' + classNames.fields,
+					handleOnChange: this.onFieldChanged,
+					level: level
+				}),
+				_react2.default.createElement(controls.operatorSelector, {
+					field: field,
+					options: getOperators(field),
+					value: operator,
+					className: 'rule-operators ' + classNames.operators,
+					handleOnChange: this.onOperatorChanged,
+					level: level
+				}),
+				_react2.default.createElement(controls.valueEditor, {
+					field: field,
+					operator: operator,
+					value: value,
+					className: 'rule-value ' + classNames.value,
+					handleOnChange: this.onValueChanged,
+					level: level
+				}),
+				_react2.default.createElement(controls.removeRuleAction, {
+					label: 'x',
+					isIcon: true,
+					className: 'rule-remove ' + classNames.removeRule,
+					handleOnClick: this.removeRule,
+					level: level
+				}),
+				showJoin ? _react2.default.createElement(
+					'span',
+					{ className: 'filter-and' },
+					'AND'
+				) : null
+			);
+		}
+	}], [{
+		key: 'defaultProps',
+		get: function get() {
+			return {
+				id: null,
+				parentId: null,
+				field: null,
+				operator: null,
+				value: null,
+				schema: null
+			};
+		}
+	}]);
 
-    return Rule;
+	return Rule;
 }(_react2.default.Component);
 
 exports.default = Rule;

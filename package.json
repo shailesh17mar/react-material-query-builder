@@ -1,6 +1,6 @@
 {
   "name": "react-material-querybuilder",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "The React Material <QueryBuilder /> component for constructing queries",
   "main": "dist/index.js",
   "repository": {
