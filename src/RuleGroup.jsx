@@ -2,6 +2,7 @@ import React from 'react';
 import Rule from './Rule';
 
 export default class RuleGroup extends React.Component {
+
     static get defaultProps() {
         return {
             id: null,
@@ -32,7 +33,7 @@ export default class RuleGroup extends React.Component {
                 {
                     React.createElement(controls.addRuleAction,
                         {
-                            label: '+Rule',
+                            label: 'Add Rule',
                             className: `ruleGroup-addRule ${classNames.addRule}`,
                             handleOnClick: this.addRule, 
                             rules: rules, 
@@ -43,7 +44,7 @@ export default class RuleGroup extends React.Component {
                 {
                     React.createElement(controls.addGroupAction,
                         {
-                            label: '+Group',
+                            label: 'Add Group',
                             className: `ruleGroup-addGroup ${classNames.addGroup}`,
                             handleOnClick: this.addGroup, 
                             rules: rules, 
@@ -55,7 +56,7 @@ export default class RuleGroup extends React.Component {
                     this.hasParentGroup() ?
                         React.createElement(controls.removeGroupAction,
                             {
-                                label: 'x',
+                                isIcon: true,
                                 className: `ruleGroup-remove ${classNames.removeGroup}`,
                                 handleOnClick: this.removeGroup, 
                                 rules: rules, 
@@ -123,6 +124,5 @@ export default class RuleGroup extends React.Component {
 
         this.props.schema.onGroupRemove(this.props.id, this.props.parentId);
     }
-
 
 }

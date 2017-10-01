@@ -17,7 +17,7 @@ const ValueSelector = (props) => {
           };
         })
       }
-      onChange={e=>handleOnChange(e.target.value)}
+      onChange={value=>handleOnChange(value)}
     />
   );
 }

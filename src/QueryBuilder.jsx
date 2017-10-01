@@ -54,16 +54,16 @@ export default class QueryBuilder extends React.Component {
     static get defaultOperators() {
 
         return [
-            {name: 'null', label: 'Is Null'},
-            {name: 'notNull', label: 'Is Not Null'},
-            {name: 'in', label: 'In'},
-            {name: 'notIn', label: 'Not In'},
-            {name: '=', label: '='},
-            {name: '!=', label: '!='},
-            {name: '<', label: '<'},
-            {name: '>', label: '>'},
-            {name: '<=', label: '<='},
-            {name: '>=', label: '>='},
+            {name: 'null', label: 'is null'},
+            {name: 'notNull', label: 'is not null'},
+            {name: 'exists', label: 'exists'},
+            {name: 'notExists', label: 'does not exist'},
+            {name: '=', label: 'equal'},
+            {name: '!=', label: 'not equal'},
+            {name: '>', label: 'greater than'},
+            {name: '<', label: 'less than'},
+            {name: '>=', label: 'greater than equal to'},
+            {name: '<=', label: 'less than equal to'}
         ];
     }
 

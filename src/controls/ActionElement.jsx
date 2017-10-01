@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-toolbox';
+import { Button, IconButton } from 'react-toolbox';
 
 const ActionElement = (props) => {
-  const {label, className, handleOnClick} = props;
+  const {label, isIcon, className, handleOnClick} = props;
 
-  return (
-    <Button label={label} className={className} onClick={e=>handleOnClick(e)}>
-    </Button>
-  );
+    return isIcon?
+    <IconButton icon='close' className={className} onClick={e=>handleOnClick(e)} ></IconButton>
+    : <Button raised label={label} className={className} onClick={e=>handleOnClick(e)}></Button>;
 }
 
 ActionElement.displayName = 'ActionElement';

@@ -5,14 +5,13 @@ import { Input } from 'react-toolbox';
 const ValueEditor = (props) => {
   const {field, operator, value, handleOnChange} = props;
 
-  if (operator === 'null' || operator === 'notNull') {
+  if (operator === 'null' || operator === 'notNull'  || operator === 'exists' || operator === 'notExists') {
     return null;
   }
 
   return (
     <Input
       value={value || ''}
-       label='Number'
       onChange={e=>handleOnChange(e.target.value)} 
     />
   );

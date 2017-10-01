@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default class Rule extends React.Component {
+
     static get defaultProps() {
         return {
             id: null,
@@ -55,40 +56,40 @@ export default class Rule extends React.Component {
                 {
                     React.createElement(controls.removeRuleAction,
                     {
-                        label: 'x',
-                        className: `rule-remove ${classNames.removeRule}`,
-                        handleOnClick: this.removeRule, 
-                        level: level
+                      label: 'x',
+                      isIcon: true,
+                      className: `rule-remove ${classNames.removeRule}`,
+                      handleOnClick: this.removeRule, 
+                      level: level
                     })
                 }
-            </div>
+              </div>
         );
     }
 
-    onFieldChanged = (value) => {
-        this.onElementChanged('field', value);
-    }
+  onFieldChanged = (value) => {
+    this.onElementChanged('field', value);
+  }
 
-    onOperatorChanged = (value) => {
-        this.onElementChanged('operator', value);
-    }
+  onOperatorChanged = (value) => {
+    this.onElementChanged('operator', value);
+  }
 
-    onValueChanged = (value) => {
-        this.onElementChanged('value', value);
-    }
+  onValueChanged = (value) => {
+    this.onElementChanged('value', value);
+  }
 
-    onElementChanged = (property, value) => {
-        const {id, schema: {onPropChange}} = this.props;
+  onElementChanged = (property, value) => {
+    const {id, schema: {onPropChange}} = this.props;
 
-        onPropChange(property, value, id);
-    }
+    onPropChange(property, value, id);
+  }
 
-    removeRule = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+  removeRule = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-        this.props.schema.onRuleRemove(this.props.id, this.props.parentId);
-    }
-
+    this.props.schema.onRuleRemove(this.props.id, this.props.parentId);
+  }
 
 }

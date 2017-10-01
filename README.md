@@ -1,14 +1,9 @@
-# react-querybuilder
-
-[![npm](https://img.shields.io/npm/v/react-querybuilder.svg?maxAge=2592000)](https://www.npmjs.com/package/react-querybuilder)
-[![Build Status](https://travis-ci.org/sapientglobalmarkets/react-querybuilder.svg?branch=master)](https://travis-ci.org/sapientglobalmarkets/react-querybuilder)
-[![codecov.io](https://codecov.io/github/sapientglobalmarkets/react-querybuilder/coverage.svg?branch=master)](https://codecov.io/github/sapientglobalmarkets/react-querybuilder?branch=master)
+# react-material-querybuilder
 
 ## Credits
 This component was inspired by prior work from:
 
-- [jQuery QueryBuilder](http://querybuilder.js.org/)
-- [Angular QueryBuilder](https://github.com/mfauveau/angular-query-builder)
+- [React QueryBuilder](https://github.com/sapientglobalmarkets/react-querybuilder)
 
 
 ## Getting Started
@@ -24,13 +19,13 @@ Open `<path-to-project>/node_modules/react-querybuilder/demo/index.html` in your
 
 OR
 
-[See live Demo](https://sapientglobalmarkets.github.io/react-querybuilder/).
+[See live Demo](https://shailesh17mar.github.io/react-material-querybuilder/).
 
 
 ## Usage
 
 ```jsx
-import QueryBuilder from 'react-querybuilder';
+import QueryBuilder from 'react-material-querybuilder';
 
 const fields = [
     {name: 'firstName', label: 'First Name'},
@@ -266,16 +261,3 @@ with the following properties:
 }
 ```
 
-## Development
-
-### Changelog Generation
-
-We are using [github-changes](https://github.com/lalitkapoor/github-changes) to generate the changelog.
-
-To use it:
-
-1. tag your commit using [semantic versioning](http://semver.org/)
-1. run `npm run generate-changelog`
-1. enter your github credentials at the prompt
-1. commit
-1. push your commit and tags

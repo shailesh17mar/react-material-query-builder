@@ -4,6 +4,21 @@
     margin-left: 0.5rem;
 }
 
+.rule{
+  display: flex;
+}
+.rule > div{
+  margin: 0 0.8rem;
+}
+
+.rule-remove{
+  padding: 20px 0 !important;
+}
+
+.ruleGroup-addRule, .ruleGroup-addGroup{
+  margin-right: 20px !important;
+}
+
 .ruleGroup {
     padding: 0.5rem;
     border: 1px solid #CCC;

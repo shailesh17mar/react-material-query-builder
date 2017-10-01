@@ -1,23 +1,24 @@
 {
-  "name": "react-querybuilder",
+  "name": "react-material-querybuilder",
   "version": "1.3.8",
-  "description": "The React <QueryBuilder /> component for constructing queries",
+  "description": "The React Material <QueryBuilder /> component for constructing queries",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sapientglobalmarkets/react-querybuilder"
+    "url": "https://github.com/shailesh17mar/react-material-query-builder"
   },
   "keywords": [
     "react",
     "query",
+    "material",
     "builder",
     "operators",
     "ui",
     "component"
   ],
-  "author": "Pavan Podila <pavan@pixelingene.com> (http://blog.pixelingene.com)",
+  "author": "Shailesh Srivastava <shailesh@kontext.in>",
   "license": "MIT",
-  "homepage": "https://github.com/sapientglobalmarkets/react-querybuilder",
+  "homepage": "https://github.com/shailesh17mar/react-material-query-builder",
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
