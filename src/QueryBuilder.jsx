@@ -145,15 +145,18 @@ export default class QueryBuilder extends React.Component {
     }
 
     render() {
-        const {root: {id, rules, combinator}, schema} = this.state;
+        const {root: {id, showCombinators, rules, combinator, allowRulesAtRoot }, schema} = this.state;
 
         return (
             <div className={`queryBuilder ${schema.classNames.queryBuilder}`}>
                 <RuleGroup
                     rules={rules}
                     combinator={combinator}
+                    showCombinators={showCombinators}
                     schema={schema}
+                    allowRulesAtRoot={ allowRulesAtRoot }
                     id={id}
+                    isRoot={ true }
                     parentId={null}
                 />
             </div>
@@ -180,6 +183,10 @@ export default class QueryBuilder extends React.Component {
         return {
             id: `g-${uniqueId()}`,
             rules: [],
+            allowRulesAtRoot: false,
+            showCombinators: false,
+            allowGroupsAtChildren: false,
+            isRoot: true,
             combinator: this.props.combinators[0].name,
         };
     }
