@@ -23,9 +23,9 @@ module.exports = merge(webpackCommon, {
     },
 
     plugins: [
-        new HtmlPlugin({
-            title: 'react-querybuilder (DEMO)',
-            template: './demo/index.html'
-        })
+      new HtmlPlugin({
+        title: 'react-querybuilder (DEMO)',
+        template: './demo/index.html'
+      })
     ]
 });

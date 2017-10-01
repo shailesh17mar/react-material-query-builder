@@ -2,6 +2,7 @@ import '../src/query-builder.scss';
 import QueryBuilder from '../src/index';
 import ReactDOM from "react-dom";
 import React from 'react';
+import { Input } from 'react-toolbox';
 
 const fields = [
     {name: 'firstName', label: 'First Name'},
@@ -50,7 +51,7 @@ class RootView extends React.Component {
 
             render() {
                 if (this.props.field !== 'isDev' || this.props.operator !== '=') {
-                    return <input type="text"
+                    return <Input type="text"
                                   value={this.props.value}
                                   onChange={e => this.props.handleOnChange(e.target.value)}/>
                 }

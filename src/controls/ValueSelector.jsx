@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Dropdown } from 'react-toolbox';
 
 const ValueSelector = (props) => {
   const {value, options, className, handleOnChange} = props;
 
   return (
-    <select className={className}
-            value={value}
-            onChange={e=>handleOnChange(e.target.value)}>
-      {
-        options.map(option=> {
-          return (
-            <option key={option.name} value={option.name}>{option.label}</option>
-          );
+    <Dropdown 
+      className={className}
+      value={value}
+      source = {
+        options.map(option => {
+          return {
+            label: option.label,
+            value: option.name
+          };
         })
       }
-    </select>
+      onChange={e=>handleOnChange(e.target.value)}
+    />
   );
 }
 

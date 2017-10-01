@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Input } from 'react-toolbox';
 
 const ValueEditor = (props) => {
   const {field, operator, value, handleOnChange} = props;
@@ -9,9 +10,11 @@ const ValueEditor = (props) => {
   }
 
   return (
-    <input type="text"
-           value={value}
-           onChange={e=>handleOnChange(e.target.value)} />
+    <Input
+      value={value || ''}
+       label='Number'
+      onChange={e=>handleOnChange(e.target.value)} 
+    />
   );
 };
 
