@@ -1,4 +1,3 @@
-import '../src/query-builder.scss';
 import QueryBuilder from '../src/index';
 import ReactDOM from "react-dom";
 import React from 'react';
