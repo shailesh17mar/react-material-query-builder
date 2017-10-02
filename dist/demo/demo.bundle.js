@@ -21557,7 +21557,7 @@ var QueryBuilder = function (_React$Component) {
         key: 'defaultOperators',
         get: function get() {
 
-            return [{ name: 'null', label: 'is null' }, { name: 'notNull', label: 'is not null' }, { name: 'exists', label: 'exists' }, { name: 'notExists', label: 'does not exist' }, { name: '=', label: 'equal' }, { name: '!=', label: 'not equal' }, { name: '>', label: 'greater than' }, { name: '<', label: 'less than' }, { name: '>=', label: 'greater than equal to' }, { name: '<=', label: 'less than equal to' }];
+            return [{ name: 'after', label: 'after' }, { name: 'before', label: 'before' }, { name: 'null', label: 'null' }, { name: 'not_null', label: 'not null' }, { name: 'exists', label: 'exists' }, { name: 'not_exists', label: 'does not exist' }, { name: 'equal', label: 'equal' }, { name: 'not_equal', label: 'not equal' }, { name: 'greater', label: 'greater than' }, { name: 'less', label: 'less than' }, { name: 'greater_equal', label: 'greater than equal to' }, { name: 'less_equal', label: 'less than equal to' }];
         }
     }, {
         key: 'defaultCombinators',
@@ -26370,7 +26370,7 @@ var ValueEditor = function ValueEditor(props) {
       handleOnChange = props.handleOnChange;
 
 
-  if (operator === 'null' || operator === 'notNull' || operator === 'exists' || operator === 'notExists') {
+  if (operator === 'null' || operator === 'not_null' || operator === 'exists' || operator === 'not_exists') {
     return null;
   }
 

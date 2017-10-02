@@ -5,7 +5,7 @@ import { Input } from 'react-toolbox';
 const ValueEditor = (props) => {
   const {field, operator, value, handleOnChange} = props;
 
-  if (operator === 'null' || operator === 'notNull'  || operator === 'exists' || operator === 'notExists') {
+  if (operator === 'null' || operator === 'not_null'  || operator === 'exists' || operator === 'not_exists') {
     return null;
   }
 
