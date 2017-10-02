@@ -21070,7 +21070,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var fields = [{ name: 'firstName', label: 'First Name' }, { name: 'lastName', label: 'Last Name' }, { name: 'age', label: 'Age' }, { name: 'address', label: 'Address' }, { name: 'phone', label: 'Phone' }, { name: 'email', label: 'Email' }, { name: 'twitter', label: 'Twitter' }, { name: 'isDev', label: 'Is a Developer?', value: false }];
+var fields = [{ name: 'firstName', label: 'First Name' }, { name: 'lastName', label: 'Last Name' }, { name: 'age', label: 'Age' }, { name: 'address', label: 'Address' }, { name: 'phone', label: 'Phone' }, { name: 'email', label: 'Email', hasKey: true }, { name: 'twitter', label: 'Twitter' }, { name: 'isDev', label: 'Is a Developer?', hasKey: true }];
 
 var RootView = function (_React$Component) {
   _inherits(RootView, _React$Component);
@@ -21557,7 +21557,7 @@ var QueryBuilder = function (_React$Component) {
         key: 'defaultOperators',
         get: function get() {
 
-            return [{ name: 'after', label: 'after' }, { name: 'before', label: 'before' }, { name: 'null', label: 'null' }, { name: 'not_null', label: 'not null' }, { name: 'exists', label: 'exists' }, { name: 'not_exists', label: 'does not exist' }, { name: 'equal', label: 'equal' }, { name: 'not_equal', label: 'not equal' }, { name: 'greater', label: 'greater than' }, { name: 'less', label: 'less than' }, { name: 'greater_equal', label: 'greater than equal to' }, { name: 'less_equal', label: 'less than equal to' }];
+            return [{ name: 'after', label: 'after' }, { name: 'before', label: 'before' }, { name: 'null', label: 'null' }, { name: 'not_null', label: 'not null' }, { name: 'exists', label: 'exists' }, { name: 'not_exists', label: 'does not exist' }, { name: 'is_inside', label: 'is inside' }, { name: 'is', label: 'is' }, { name: 'is_not', label: 'is not' }, { name: 'greater', label: 'greater than' }, { name: 'less', label: 'less than' }, { name: 'greater_equal', label: 'greater than equal to' }, { name: 'less_equal', label: 'less than equal to' }];
         }
     }, {
         key: 'defaultCombinators',
@@ -26134,6 +26134,7 @@ var RuleGroup = function (_React$Component) {
 						id: r.id,
 						field: r.field,
 						value: r.value,
+						keyName: r.keyName,
 						operator: r.operator,
 						showJoin: i !== rules.length - 1,
 						schema: _this2.props.schema,
@@ -26193,36 +26194,56 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Rule = function (_React$Component) {
 	_inherits(Rule, _React$Component);
 
-	function Rule() {
-		var _ref;
-
-		var _temp, _this, _ret;
-
+	function Rule(props) {
 		_classCallCheck(this, Rule);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+		var _this = _possibleConstructorReturn(this, (Rule.__proto__ || Object.getPrototypeOf(Rule)).call(this, props));
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rule.__proto__ || Object.getPrototypeOf(Rule)).call.apply(_ref, [this].concat(args))), _this), _this.onFieldChanged = function (value) {
+		_this.onFieldChanged = function (value) {
+			//check if it has haskey attribute if yes then show the keyvalue editor
+			var field = _this.props.schema.fields.filter(function (field) {
+				return field.name === value;
+			})[0];
+			if (field.hasKey) {
+				_this.setState({ showKeyValueEditor: true });
+			} else {
+				_this.setState({ showKeyValueEditor: false });
+			}
 			_this.onElementChanged('field', value);
-		}, _this.onOperatorChanged = function (value) {
+		};
+
+		_this.onOperatorChanged = function (value) {
 			_this.onElementChanged('operator', value);
-		}, _this.onValueChanged = function (value) {
+		};
+
+		_this.onValueChanged = function (value) {
 			_this.onElementChanged('value', value);
-		}, _this.onElementChanged = function (property, value) {
+		};
+
+		_this.onKeyChanged = function (value) {
+			_this.onElementChanged('keyName', value);
+		};
+
+		_this.onElementChanged = function (property, value) {
 			var _this$props = _this.props,
 			    id = _this$props.id,
 			    onPropChange = _this$props.schema.onPropChange;
 
 
 			onPropChange(property, value, id);
-		}, _this.removeRule = function (event) {
+		};
+
+		_this.removeRule = function (event) {
 			event.preventDefault();
 			event.stopPropagation();
 
 			_this.props.schema.onRuleRemove(_this.props.id, _this.props.parentId);
-		}, _temp), _possibleConstructorReturn(_this, _ret);
+		};
+
+		_this.state = {
+			showKeyValueEditor: false
+		};
+		return _this;
 	}
 
 	_createClass(Rule, [{
@@ -26231,6 +26252,7 @@ var Rule = function (_React$Component) {
 			var _props = this.props,
 			    field = _props.field,
 			    showJoin = _props.showJoin,
+			    keyName = _props.keyName,
 			    operator = _props.operator,
 			    value = _props.value,
 			    _props$schema = _props.schema,
@@ -26241,6 +26263,7 @@ var Rule = function (_React$Component) {
 			    classNames = _props$schema.classNames;
 
 			var level = getLevel(this.props.id);
+			var showKeyValueEditor = this.state.showKeyValueEditor;
 			return _react2.default.createElement(
 				'div',
 				{ className: 'rule ' + classNames.rule },
@@ -26251,6 +26274,14 @@ var Rule = function (_React$Component) {
 					handleOnChange: this.onFieldChanged,
 					level: level
 				}),
+				showKeyValueEditor ? _react2.default.createElement(controls.valueEditor, {
+					field: field,
+					operator: operator,
+					value: keyName,
+					className: 'rule-value ' + classNames.value,
+					handleOnChange: this.onKeyChanged,
+					level: level
+				}) : null,
 				_react2.default.createElement(controls.operatorSelector, {
 					field: field,
 					options: getOperators(field),
@@ -26287,6 +26318,7 @@ var Rule = function (_React$Component) {
 			return {
 				id: null,
 				parentId: null,
+				keyName: null,
 				field: null,
 				operator: null,
 				value: null,

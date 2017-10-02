@@ -9,9 +9,9 @@ const fields = [
   {name: 'age', label: 'Age'},
   {name: 'address', label: 'Address'},
   {name: 'phone', label: 'Phone'},
-  {name: 'email', label: 'Email'},
+  {name: 'email', label: 'Email', hasKey: true},
   {name: 'twitter', label: 'Twitter'},
-  {name: 'isDev', label: 'Is a Developer?', value: false},
+  {name: 'isDev', label: 'Is a Developer?', hasKey: true},
 ];
 
 class RootView extends React.Component {
