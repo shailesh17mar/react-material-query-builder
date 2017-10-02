@@ -12,7 +12,7 @@ const ValueEditor = (props) => {
   return (
     <Input
       value={value || ''}
-      onChange={e=>handleOnChange(e.target.value)} 
+      onChange={handleOnChange} 
     />
   );
 };

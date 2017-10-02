@@ -1,6 +1,7 @@
 import uniqueId from 'uuid/v4';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
+import '../src/query-builder.scss';
 import PropTypes from 'prop-types';
 
 import RuleGroup from './RuleGroup';
