@@ -14776,6 +14776,7 @@ var RuleGroup = function (_React$Component) {
 			    rules = _props.rules,
 			    isRoot = _props.isRoot,
 			    allowRulesAtRoot = _props.allowRulesAtRoot,
+			    showJoin = _props.showJoin,
 			    allowGroupsAtChildren = _props.allowGroupsAtChildren,
 			    _props$schema = _props.schema,
 			    combinators = _props$schema.combinators,
@@ -14823,6 +14824,7 @@ var RuleGroup = function (_React$Component) {
 						id: r.id,
 						schema: _this2.props.schema,
 						parentId: _this2.props.id,
+						showJoin: i !== rules.length - 1,
 						allowGroupsAtChildren: allowGroupsAtChildren,
 						combinator: r.combinator,
 						rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
@@ -14835,7 +14837,12 @@ var RuleGroup = function (_React$Component) {
 						schema: _this2.props.schema,
 						parentId: _this2.props.id,
 						onRuleRemove: onRuleRemove });
-				})
+				}),
+				showJoin ? _react2.default.createElement(
+					'span',
+					{ className: 'filter-or' },
+					'OR'
+				) : null
 			);
 		}
 	}, {
@@ -15102,6 +15109,7 @@ var ValueEditor = function ValueEditor(props) {
   }
 
   return _react2.default.createElement(_reactToolbox.Input, {
+    required: true,
     value: value || '',
     onChange: handleOnChange
   });

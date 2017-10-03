@@ -11,6 +11,7 @@ const ValueEditor = (props) => {
 
   return (
     <Input
+      required
       value={value || ''}
       onChange={handleOnChange} 
     />

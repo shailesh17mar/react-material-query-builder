@@ -14,7 +14,7 @@ export default class RuleGroup extends React.Component {
 	}
 
 	render() {
-		const { combinator, showCombinators, rules, isRoot, allowRulesAtRoot, allowGroupsAtChildren, schema: {combinators, controls, onRuleRemove, isRuleGroup, getLevel, classNames } } = this.props;
+		const { combinator, showCombinators, rules, isRoot, allowRulesAtRoot, showJoin, allowGroupsAtChildren, schema: {combinators, controls, onRuleRemove, isRuleGroup, getLevel, classNames } } = this.props;
 		const level = getLevel(this.props.id);
 		return (
 			<div className={`ruleGroup ${classNames.ruleGroup}`}>
@@ -72,6 +72,7 @@ export default class RuleGroup extends React.Component {
 										id={r.id}
 										schema={this.props.schema}
 										parentId={this.props.id}
+										showJoin={i !== rules.length -1}
 										allowGroupsAtChildren={allowGroupsAtChildren}
 										combinator={r.combinator}
 										rules={r.rules}/>
@@ -87,45 +88,49 @@ export default class RuleGroup extends React.Component {
 										onRuleRemove={onRuleRemove}/>
 								);
 							})
-						}
-					</div>
-		);
-	}
+            }
+            {showJoin?
+                <span className="filter-or">OR</span>
+                : null
+            }
+          </div>
+    );
+  }
 
-	hasParentGroup() {
-		return this.props.parentId;
-	}
+  hasParentGroup() {
+    return this.props.parentId;
+  }
 
-	onCombinatorChange = (value) => {
-		const {onPropChange} = this.props.schema;
+  onCombinatorChange = (value) => {
+    const {onPropChange} = this.props.schema;
 
-		onPropChange('combinator', value, this.props.id);
-	}
+    onPropChange('combinator', value, this.props.id);
+  }
 
-	addRule = (event) => {
-		event.preventDefault();
-		event.stopPropagation();
+  addRule = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-		const {createRule, onRuleAdd} = this.props.schema;
+    const {createRule, onRuleAdd} = this.props.schema;
 
-		const newRule = createRule();
-		onRuleAdd(newRule, this.props.id)
-	}
+    const newRule = createRule();
+    onRuleAdd(newRule, this.props.id)
+  }
 
-	addGroup = (event) => {
-		event.preventDefault();
-		event.stopPropagation();
+  addGroup = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-		const {createRuleGroup, onGroupAdd} = this.props.schema;
-		const newGroup = createRuleGroup();
-		onGroupAdd(newGroup, this.props.id)
-	}
+    const {createRuleGroup, onGroupAdd} = this.props.schema;
+    const newGroup = createRuleGroup();
+    onGroupAdd(newGroup, this.props.id)
+  }
 
-	removeGroup = (event) => {
-		event.preventDefault();
-		event.stopPropagation();
+  removeGroup = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-		this.props.schema.onGroupRemove(this.props.id, this.props.parentId);
-	}
+    this.props.schema.onGroupRemove(this.props.id, this.props.parentId);
+  }
 
 }
