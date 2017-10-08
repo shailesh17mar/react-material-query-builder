@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'react-toolbox';
 
 const ValueEditor = (props) => {
-  const {field, operator, value, handleOnChange} = props;
+  const {field, operator, value, label, handleOnChange} = props;
 
   if (operator === 'null' || operator === 'not_null'  || operator === 'exists' || operator === 'not_exists') {
     return null;
@@ -12,6 +12,7 @@ const ValueEditor = (props) => {
   return (
     <Input
       required
+      label = { label  || ''}
       value={value || ''}
       onChange={handleOnChange} 
     />

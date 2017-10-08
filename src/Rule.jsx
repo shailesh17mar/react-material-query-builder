@@ -14,7 +14,10 @@ export default class Rule extends React.Component {
 			id: null,
 			parentId: null,
 			keyName: null,
+			keyLabel: null,
+			fieldLabel: null,
 			field: null,
+      label: null,
 			operator: null,
 			value: null,
 			schema: null
@@ -22,7 +25,7 @@ export default class Rule extends React.Component {
 	}
 
 	render() {
-		const {field, showJoin, keyName, operator, value, schema: {fields, controls, getOperators, getLevel, classNames}} = this.props;
+		const {field, showJoin, keyName, keyLabel, fieldLabel, operator, value, schema: {fields, controls, getOperators, getLevel, classNames}} = this.props;
 		var level = getLevel(this.props.id);
     const showKeyValueEditor = this.state.showKeyValueEditor;
 		return (
@@ -44,6 +47,7 @@ export default class Rule extends React.Component {
 							field: field,
 							operator: operator,
 							value: keyName,
+              label: keyLabel,
 							className: `rule-value ${classNames.value}`,
 							handleOnChange: this.onKeyChanged, 
 							level: level
@@ -68,6 +72,7 @@ export default class Rule extends React.Component {
 							field: field,
 							operator: operator,
 							value: value,
+              label: fieldLabel,
 							className: `rule-value ${classNames.value}`,
 							handleOnChange: this.onValueChanged, 
 							level: level

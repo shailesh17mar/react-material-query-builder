@@ -81,6 +81,8 @@ export default class RuleGroup extends React.Component {
 										field={r.field}
 										value={r.value}
 										keyName={r.keyName}
+										keyLabel={r.keyLabel}
+										fieldLabel={r.fieldLabel}
 										operator={r.operator}
 										showJoin={i !== rules.length -1}
 										schema={this.props.schema}
