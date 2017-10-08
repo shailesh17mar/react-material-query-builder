@@ -4,11 +4,12 @@ import { Dropdown } from 'react-toolbox';
 
 const ValueSelector = (props) => {
   const {value, options, className, handleOnChange} = props;
+  handleOnChange(value);
 
   return (
     <Dropdown 
       className={className}
-      value={value}
+      value={value }
       source = {
         options.map(option => {
           return {
@@ -17,7 +18,7 @@ const ValueSelector = (props) => {
           };
         })
       }
-      onChange={value=>handleOnChange(value)}
+      onChange={handleOnChange}
     />
   );
 }

@@ -23,6 +23,7 @@ ValueEditor.displayName = 'ValueEditor';
 
 ValueEditor.propTypes = {
   field: PropTypes.string,
+  label: PropTypes.string,
   operator: PropTypes.string,
   value: PropTypes.string,
   handleOnChange: PropTypes.func

@@ -5,7 +5,9 @@ export default class Rule extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      showKeyValueEditor: false
+      showKeyValueEditor: false,
+      fieldLabel: '',
+      keyLabel: ''
     };
   }
 
@@ -14,8 +16,6 @@ export default class Rule extends React.Component {
 			id: null,
 			parentId: null,
 			keyName: null,
-			keyLabel: null,
-			fieldLabel: null,
 			field: null,
       label: null,
 			operator: null,
@@ -25,9 +25,9 @@ export default class Rule extends React.Component {
 	}
 
 	render() {
-		const {field, showJoin, keyName, keyLabel, fieldLabel, operator, value, schema: {fields, controls, getOperators, getLevel, classNames}} = this.props;
+		const {field, showJoin, keyName, operator, value, schema: {fields, controls, getOperators, getLevel, classNames}} = this.props;
 		var level = getLevel(this.props.id);
-    const showKeyValueEditor = this.state.showKeyValueEditor;
+    const { showKeyValueEditor, fieldLabel, keyLabel } = this.state;
 		return (
 			<div className={`rule ${classNames.rule}`}>
 				{
@@ -46,8 +46,8 @@ export default class Rule extends React.Component {
 						{
 							field: field,
 							operator: operator,
-							value: keyName,
               label: keyLabel,
+							value: keyName,
 							className: `rule-value ${classNames.value}`,
 							handleOnChange: this.onKeyChanged, 
 							level: level
@@ -101,10 +101,10 @@ export default class Rule extends React.Component {
     //check if it has haskey attribute if yes then show the keyvalue editor
     const field = this.props.schema.fields.filter( field =>  field.name === value)[0];
     if(field.hasKey){
-      this.setState({ showKeyValueEditor : true})
+      this.setState({ showKeyValueEditor : true, fieldLabel : field.fieldLabel, keyLabel : field.keyLabel})
     }
     else{
-      this.setState({ showKeyValueEditor : false})
+      this.setState({ showKeyValueEditor : false, fieldLabel : field.fieldLabel, keyLabel : field.keyLabel})
     }
     this.onElementChanged('field', value);
   }

@@ -4,7 +4,7 @@ import React from 'react';
 import { Input } from 'react-toolbox';
 
 const fields = [
-  {name: 'firstName', label: 'First Name'},
+  {name: 'firstName', label: 'First Name', fieldLabel: 'sharma'},
   {name: 'lastName', label: 'Last Name'},
   {name: 'age', label: 'Age'},
   {name: 'address', label: 'Address'},
