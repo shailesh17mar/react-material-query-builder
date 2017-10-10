@@ -11441,7 +11441,7 @@ var QueryBuilder = function (_React$Component) {
 
             return {
                 id: 'r-' + (0, _v2.default)(),
-                field: fields[0].name,
+                // field: fields[0].name,
                 value: '',
                 operator: operators[0].name
             };
@@ -14832,6 +14832,8 @@ var RuleGroup = function (_React$Component) {
 						field: r.field,
 						value: r.value,
 						keyName: r.keyName,
+						keyLabel: r.keyLabel,
+						fieldLabel: r.fieldLabel,
 						operator: r.operator,
 						showJoin: i !== rules.length - 1,
 						schema: _this2.props.schema,
@@ -14907,9 +14909,9 @@ var Rule = function (_React$Component) {
 				return field.name === value;
 			})[0];
 			if (field.hasKey) {
-				_this.setState({ showKeyValueEditor: true });
+				_this.setState({ showKeyValueEditor: true, fieldLabel: field.fieldLabel, keyLabel: field.keyLabel });
 			} else {
-				_this.setState({ showKeyValueEditor: false });
+				_this.setState({ showKeyValueEditor: false, fieldLabel: field.fieldLabel, keyLabel: field.keyLabel });
 			}
 			_this.onElementChanged('field', value);
 		};
@@ -14943,7 +14945,9 @@ var Rule = function (_React$Component) {
 		};
 
 		_this.state = {
-			showKeyValueEditor: false
+			showKeyValueEditor: false,
+			fieldLabel: '',
+			keyLabel: ''
 		};
 		return _this;
 	}
@@ -14965,7 +14969,11 @@ var Rule = function (_React$Component) {
 			    classNames = _props$schema.classNames;
 
 			var level = getLevel(this.props.id);
-			var showKeyValueEditor = this.state.showKeyValueEditor;
+			var _state = this.state,
+			    showKeyValueEditor = _state.showKeyValueEditor,
+			    fieldLabel = _state.fieldLabel,
+			    keyLabel = _state.keyLabel;
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'rule ' + classNames.rule },
@@ -14979,6 +14987,7 @@ var Rule = function (_React$Component) {
 				showKeyValueEditor ? _react2.default.createElement(controls.valueEditor, {
 					field: field,
 					operator: operator,
+					label: keyLabel,
 					value: keyName,
 					className: 'rule-value ' + classNames.value,
 					handleOnChange: this.onKeyChanged,
@@ -14996,6 +15005,7 @@ var Rule = function (_React$Component) {
 					field: field,
 					operator: operator,
 					value: value,
+					label: fieldLabel,
 					className: 'rule-value ' + classNames.value,
 					handleOnChange: this.onValueChanged,
 					level: level
@@ -15022,6 +15032,7 @@ var Rule = function (_React$Component) {
 				parentId: null,
 				keyName: null,
 				field: null,
+				label: null,
 				operator: null,
 				value: null,
 				schema: null
@@ -15101,6 +15112,7 @@ var ValueEditor = function ValueEditor(props) {
   var field = props.field,
       operator = props.operator,
       value = props.value,
+      label = props.label,
       handleOnChange = props.handleOnChange;
 
 
@@ -15110,6 +15122,7 @@ var ValueEditor = function ValueEditor(props) {
 
   return _react2.default.createElement(_reactToolbox.Input, {
     required: true,
+    label: label || '',
     value: value || '',
     onChange: handleOnChange
   });
@@ -15119,6 +15132,7 @@ ValueEditor.displayName = 'ValueEditor';
 
 ValueEditor.propTypes = {
   field: _propTypes2.default.string,
+  label: _propTypes2.default.string,
   operator: _propTypes2.default.string,
   value: _propTypes2.default.string,
   handleOnChange: _propTypes2.default.func
@@ -27788,9 +27802,7 @@ var ValueSelector = function ValueSelector(props) {
         value: option.name
       };
     }),
-    onChange: function onChange(value) {
-      return handleOnChange(value);
-    }
+    onChange: handleOnChange
   });
 };
 
