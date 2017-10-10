@@ -4,7 +4,6 @@ import { Dropdown } from 'react-toolbox';
 
 const ValueSelector = (props) => {
   const {value, options, className, handleOnChange} = props;
-  handleOnChange(value);
 
   return (
     <Dropdown 

@@ -177,7 +177,7 @@ export default class QueryBuilder extends React.Component {
 
         return {
             id: `r-${uniqueId()}`,
-            field: fields[0].name,
+            // field: fields[0].name,
             value: '',
             operator: operators[0].name
         };
